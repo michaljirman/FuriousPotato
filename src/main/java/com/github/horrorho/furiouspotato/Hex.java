@@ -23,22 +23,16 @@
  */
 package com.github.horrorho.furiouspotato;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import net.jcip.annotations.Immutable;
 
 /**
  *
  * @author Ahseya
  */
-public class Main {
+@Immutable
+public final class Hex {
 
-    private static final Logger logger = LoggerFactory.getLogger(Main.class);
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        Args.parse(args).
-                ifPresent(u -> Engine.execute(u.file(), u.delta(), u.address()));
+    public static String integer(int i) {
+        return String.format("%08x", i);
     }
 }

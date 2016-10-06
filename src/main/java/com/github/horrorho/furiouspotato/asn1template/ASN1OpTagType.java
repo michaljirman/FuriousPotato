@@ -21,24 +21,33 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.github.horrorho.furiouspotato;
+package com.github.horrorho.furiouspotato.asn1template;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import net.jcip.annotations.Immutable;
 
 /**
  *
  * @author Ahseya
  */
-public class Main {
+@Immutable
+public enum ASN1OpTagType {
 
-    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+    PRIMITIVE(0x00000000),
+    CONSTRUCTED(0x00200000);
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        Args.parse(args).
-                ifPresent(u -> Engine.execute(u.file(), u.delta(), u.address()));
+    public static ASN1OpTagType map(int tt) {
+        return (tt & MASK) == 0 ? PRIMITIVE : CONSTRUCTED;
+    }
+
+    public static final int MASK = 0x00200000;
+
+    private final int bits;
+
+    private ASN1OpTagType(int bits) {
+        this.bits = bits;
+    }
+
+    public int bits() {
+        return bits;
     }
 }

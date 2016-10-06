@@ -23,22 +23,30 @@
  */
 package com.github.horrorho.furiouspotato;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.github.horrorho.furiouspotato.asn1template.ASN1Template;
+import net.jcip.annotations.Immutable;
 
 /**
  *
  * @author Ahseya
  */
-public class Main {
+@Immutable
+public final class Templates {
 
-    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+    public static final String HEADER = "ADDRESS : < TT      , OFFSET,     PTR    >";
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        Args.parse(args).
-                ifPresent(u -> Engine.execute(u.file(), u.delta(), u.address()));
+    public static String format(ASN1Template template) {
+        return format(template.address(), template.tt(), template.offset(), template.ptr());
+    }
+
+    public static String format(int address, int tt, int offset, int ptr) {
+        return Hex.integer(address)
+                + ": < "
+                + Hex.integer(tt)
+                + ", "
+                + Hex.integer(offset)
+                + ", "
+                + Hex.integer(ptr)
+                + " >";
     }
 }

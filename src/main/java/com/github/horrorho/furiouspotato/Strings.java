@@ -23,22 +23,46 @@
  */
 package com.github.horrorho.furiouspotato;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.List;
+import net.jcip.annotations.Immutable;
+import static java.util.stream.Collectors.joining;
 
 /**
  *
  * @author Ahseya
  */
-public class Main {
+@Immutable
+public final class Strings {
 
-    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+    public static String integer(int i) {
+        return String.format("%08x", i);
+    }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        Args.parse(args).
-                ifPresent(u -> Engine.execute(u.file(), u.delta(), u.address()));
+//    public static String indent(int indent, List<String> strings) {
+//        String joined = join(strings);
+//        return Strings.indent(indent, joined);
+//    }
+//    public static String indent(int indent, String string) {
+//        StringBuilder sb = new StringBuilder();
+//        for (int i = 0; i < indent; i++) {
+//            sb.append(' ');
+//        }
+//        sb.append(string);
+//        return sb.toString();
+//    }
+
+    public static String indent(int count) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < count; i++) {
+            sb.append(' ');
+        }
+        return sb.toString();
+    }
+
+    public static String join(List<? extends Object> list) {
+        return list.stream()
+                .map(Object::toString)
+                .filter(u -> !u.isEmpty())
+                .collect(joining(" "));
     }
 }

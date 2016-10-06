@@ -21,24 +21,54 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.github.horrorho.furiouspotato;
+package com.github.horrorho.furiouspotato.asn1template;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import net.jcip.annotations.Immutable;
 
 /**
  *
  * @author Ahseya
  */
-public class Main {
+@Immutable
+public final class ASN1Template {
 
-    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+    public static final int SIZE = 0x0c;
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        Args.parse(args).
-                ifPresent(u -> Engine.execute(u.file(), u.delta(), u.address()));
+    private final int address;
+    private final int tt;
+    private final int offset;
+    private final int ptr;
+
+    public ASN1Template(int address, int tt, int offset, int ptr) {
+        this.address = address;
+        this.tt = tt;
+        this.offset = offset;
+        this.ptr = ptr;
+    }
+
+    public int address() {
+        return address;
+    }
+
+    public int tt() {
+        return tt;
+    }
+
+    public int offset() {
+        return offset;
+    }
+
+    public int ptr() {
+        return ptr;
+    }
+
+    @Override
+    public String toString() {
+        return "ASN1Template{"
+                + "address=0x" + Integer.toHexString(address)
+                + ", tt=0x" + Integer.toHexString(tt)
+                + ", offset=0x" + Integer.toHexString(offset)
+                + ", ptr=0x" + Integer.toHexString(ptr)
+                + '}';
     }
 }

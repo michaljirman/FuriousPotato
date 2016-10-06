@@ -21,24 +21,41 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.github.horrorho.furiouspotato;
+package com.github.horrorho.furiouspotato.asn1;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Stream;
+import net.jcip.annotations.Immutable;
+import static java.util.stream.Collectors.toMap;
 
 /**
  *
  * @author Ahseya
  */
-public class Main {
+@Immutable
+public enum ASN1Class {
+    UNIVERSAL(0x00000000),
+    APPLICATION(0x00400000),
+    CONTEXT_SPECIFIC(0x00800000),
+    PRIVATE(0x00C00000);
 
-    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+    public static ASN1Class map(int i) {
+        return MAP.get(i & MASK);
+    }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        Args.parse(args).
-                ifPresent(u -> Engine.execute(u.file(), u.delta(), u.address()));
+    public static final int MASK = 0x00C00000;
+
+    private static final Map<Integer, ASN1Class> MAP
+            = Stream.of(ASN1Class.values()).collect(toMap(ASN1Class::bits, Function.identity()));
+
+    private final int bits;
+
+    private ASN1Class(int bits) {
+        this.bits = bits;
+    }
+
+    public int bits() {
+        return bits;
     }
 }

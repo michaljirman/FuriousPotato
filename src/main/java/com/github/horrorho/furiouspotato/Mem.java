@@ -23,22 +23,52 @@
  */
 package com.github.horrorho.furiouspotato;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.nio.BufferUnderflowException;
+import java.nio.ByteBuffer;
+import java.util.Objects;
+import net.jcip.annotations.NotThreadSafe;
 
 /**
  *
  * @author Ahseya
  */
-public class Main {
+@NotThreadSafe
+public final class Mem {
 
-    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+    private final ByteBuffer buffer;
+    private final int delta;
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        Args.parse(args).
-                ifPresent(u -> Engine.execute(u.file(), u.delta(), u.address()));
+    public Mem(ByteBuffer buffer, int delta) {
+        this.buffer = Objects.requireNonNull(buffer);
+        this.delta = delta;
+    }
+
+    public int integer() {
+        try {
+            return buffer.getInt();
+        } catch (BufferUnderflowException ex) {
+            throw new IllegalArgumentException("address out of bounds: 0x" + Hex.integer(address()), ex);
+        }
+    }
+
+    public int address() {
+        return buffer.position() - delta;
+    }
+
+    public Mem address(int address) {
+        try {
+            buffer.position(address + delta);
+            return this;
+        } catch (IllegalArgumentException ex) {
+            throw new IllegalArgumentException("address out of bounds: 0x" + Hex.integer(address), ex);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Mem{"
+                + "buffer=" + buffer
+                + ", delta=" + Integer.toHexString(delta)
+                + '}';
     }
 }

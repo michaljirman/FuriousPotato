@@ -21,24 +21,48 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.github.horrorho.furiouspotato;
+package com.github.horrorho.furiouspotato.asn1template;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.github.horrorho.furiouspotato.asn1.ASN1Flag;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import net.jcip.annotations.Immutable;
 
 /**
  *
  * @author Ahseya
  */
-public class Main {
+@Immutable
+public final class ASN1OpType {
 
-    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+    public static Optional<ASN1OpType> map(int tt) {
+        return ASN1Op.map(tt)
+                .filter(u -> u == ASN1Op.TYPE)
+                .map(u -> opType(tt));
+    }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        Args.parse(args).
-                ifPresent(u -> Engine.execute(u.file(), u.delta(), u.address()));
+    static ASN1OpType opType(int tt) {
+        List<ASN1Flag> flags = ASN1Flag.map(tt);
+        return new ASN1OpType(flags);
+    }
+
+    private final List<ASN1Flag> flags;
+
+    public ASN1OpType(List<ASN1Flag> flags) {
+        this.flags = new ArrayList<>(flags);
+    }
+
+    public List<ASN1Flag> flags() {
+        return new ArrayList<>(flags);
+    }
+
+    public ASN1Op op() {
+        return ASN1Op.TYPE;
+    }
+
+    @Override
+    public String toString() {
+        return "ASN1OpType{" + "flags=" + flags + '}';
     }
 }

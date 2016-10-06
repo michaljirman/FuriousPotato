@@ -21,24 +21,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.github.horrorho.furiouspotato;
+package com.github.horrorho.furiouspotato.asn1;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.List;
+import static java.util.stream.Collectors.toList;
+import java.util.stream.Stream;
 
 /**
  *
  * @author Ahseya
  */
-public class Main {
+public enum ASN1Flag {
+    OPTIONAL(0x01000000),
+    IMPLICIT(0x02000000);
 
-    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+    public static List<ASN1Flag> map(int tt) {
+        return Stream.of(ASN1Flag.values())
+                .filter(u -> (u.bits() & tt) != 0)
+                .collect(toList());
+    }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        Args.parse(args).
-                ifPresent(u -> Engine.execute(u.file(), u.delta(), u.address()));
+    public static final int MASK = 0x0F000000;
+
+    private final int bits;
+
+    private ASN1Flag(int bits) {
+        this.bits = bits;
+    }
+
+    public int bits() {
+        return bits;
     }
 }

@@ -21,24 +21,47 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.github.horrorho.furiouspotato;
+package com.github.horrorho.furiouspotato.asn1template;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import net.jcip.annotations.Immutable;
 
 /**
  *
  * @author Ahseya
  */
-public class Main {
+@Immutable
+public final class ASN1OpHeader {
 
-    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+    public static Optional<ASN1OpHeader> map(int tt) {
+        return ASN1Op.map(tt)
+                .filter(u -> u == ASN1Op.HEADER)
+                .map(u -> opHeader(tt));
+    }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        Args.parse(args).
-                ifPresent(u -> Engine.execute(u.file(), u.delta(), u.address()));
+    static ASN1OpHeader opHeader(int tt) {
+        List<ASN1OpHeaderFlag> flags = ASN1OpHeaderFlag.map(tt);
+        return new ASN1OpHeader(flags);
+    }
+
+    private final List<ASN1OpHeaderFlag> flags;
+
+    public ASN1OpHeader(List<ASN1OpHeaderFlag> flags) {
+        this.flags = new ArrayList<>(flags);
+    }
+
+    public List<ASN1OpHeaderFlag> flags() {
+        return new ArrayList<>(flags);
+    }
+
+    public ASN1Op op() {
+        return ASN1Op.HEADER;
+    }
+
+    @Override
+    public String toString() {
+        return "ASN1OpHeader{" + "flags=" + flags + '}';
     }
 }
