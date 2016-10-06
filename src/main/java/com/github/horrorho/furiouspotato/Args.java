@@ -45,7 +45,6 @@ public final class Args {
                 tryHelp();
                 return Optional.empty();
             }
-
             if (isHelp(args)) {
                 help();
                 return Optional.empty();
