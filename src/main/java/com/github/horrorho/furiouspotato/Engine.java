@@ -64,7 +64,7 @@ public final class Engine {
     }
 
     static void execute(Mem mem) {
-//        peek(mem);
+        peek(mem);
         System.out.println("");
         List<ASN1Template> templates = rip(mem);
         operations(templates);
@@ -82,7 +82,7 @@ public final class Engine {
                 .collect(joining(" "));
         mem.address(pos);
 
-        System.out.println("PEEK:");
+        System.out.println("ADDRESS PEEK:");
         System.out.println(Hex.integer(pos) + " : " + bytes);
     }
 
