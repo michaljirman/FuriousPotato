@@ -99,7 +99,6 @@ public final class Informer {
             throw new IllegalArgumentException("missing element");
         }
         ASN1Template template = it.next();
-
         logger.debug("element() - element: {}", template);
 
         ASN1Op op = ASN1Op.map(template.tt()).get();
