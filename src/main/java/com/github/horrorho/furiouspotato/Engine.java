@@ -26,13 +26,11 @@ package com.github.horrorho.furiouspotato;
 import com.github.horrorho.furiouspotato.asn1template.ASN1Template;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
-import static java.util.stream.Collectors.joining;
 import java.util.stream.IntStream;
 import net.jcip.annotations.Immutable;
 import org.slf4j.Logger;
@@ -138,6 +136,7 @@ public final class Engine {
     }
 
     static Mem mem(FileChannel in, int delta) throws IOException {
+        // Memory mapped file.
         MappedByteBuffer buffer = in.map(FileChannel.MapMode.READ_ONLY, 0, in.size());
         buffer.order(ByteOrder.LITTLE_ENDIAN);
         Mem mem = new Mem(buffer, delta);
