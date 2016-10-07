@@ -41,6 +41,8 @@ public final class Ripper {
 
     private static final Logger logger = LoggerFactory.getLogger(Ripper.class);
 
+    private static final int MAX_ELEMENTS = 1024;
+
     public static List<ASN1Template> apply(Mem mem) {
         ArrayList<ASN1Template> list = new ArrayList<>();
         apply(mem, list);
@@ -56,8 +58,13 @@ public final class Ripper {
         logger.debug("header() - header: {}", header);
         templates.accept(header);
 
+        int elements = header.ptr();
+        if (elements > MAX_ELEMENTS) {
+            throw new IllegalArgumentException("elements overflow: " + elements);
+        }
+
         int base = mem.address();
-        for (int i = 0, elements = header.ptr(); i < elements; i++) {
+        for (int i = 0; i < elements; i++) {
             mem.address(base + i * ASN1Template.SIZE);
             element(mem, templates);
         }

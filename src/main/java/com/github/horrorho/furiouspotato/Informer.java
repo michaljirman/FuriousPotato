@@ -51,7 +51,7 @@ public final class Informer {
 
     private static final Logger logger = LoggerFactory.getLogger(Informer.class);
 
-    private static final int MAX_ELEMENTS = 1024;
+    
 
     public static List<String> apply(List<ASN1Template> templates) {
         ArrayList<String> list = new ArrayList<>();
@@ -77,9 +77,6 @@ public final class Informer {
         }
 
         int elements = template.ptr();
-        if (elements > MAX_ELEMENTS) {
-            throw new IllegalArgumentException("elements overflow: " + elements);
-        }
         if (elements > 1) {
             String append = " (" + elements + ')';
             listAppendToLast(list, append);
