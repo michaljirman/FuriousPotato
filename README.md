@@ -125,9 +125,9 @@ Thus,
 We can now run the tool
 ```
 ~/FuriousPotato-master/target $ java -jar FuriousPotato.jar PCS.dll -10001800 10068980
-FILE   : /media/cain/POO/virtualbox/shared/PCS.dll
-DELTA  : 0xefffe800
-ADDRESS: 0x10068980
+FILE    : /media/cain/POO/virtualbox/shared/PCS.dll
+DELTA   : 0xefffe800
+LOCATION: 0x10068980
 
 DUMP:
 10068980 : 00000000 20000000 01000000 02006030 00000000 888a0610 00000000 14000000
