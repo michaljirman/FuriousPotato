@@ -70,7 +70,7 @@ public final class Args {
     }
 
     static void usage() {
-        System.out.println("Usage: FuriousPotato FILE DELTA ADDRESS");
+        System.out.println("Usage: FuriousPotato FILE DELTA LOCATION");
     }
 
     static void help() {
@@ -79,20 +79,20 @@ public final class Args {
         System.out.println("");
         System.out.println("     --help     display this help and exit");
         System.out.println("");
-        System.out.println("FILE<file> input file");
-        System.out.println("DELTA<hex> file position relative to executable address");
-        System.out.println("ADDRESS<hex> executable address of asn_template");
+        System.out.println("FILE<file>    input file");
+        System.out.println("DELTA<hex>    the delta in bytes that translates the executables asn1_template");
+        System.out.println("              data segment location to it's corresponding file offset");
+        System.out.println("LOCATION<hex> the data segment location of the top asn1_template");
         System.out.println("");
         System.out.println("Example:");
         System.out.println("FuriousPotato PCS.dll -10001800 10068980");
         System.out.println("");
         System.out.println("Example details:");
         System.out.println("Rips KeySet from Apple's iCloud PCS.dll (Version: 15.0.0.10.1 CRC32: E7533650)");
-        System.out.println("The DLL loads at 0x10001000");
-        System.out.println("KeySet asn1_template loads at 0x10068980");
-        System.out.println("KeySet asn1_template position in file 0x00067180");
+        System.out.println("KeySet asn1_template executable location 0x10068980");
+        System.out.println("KeySet asn1_template file offset 0x00067180");
         System.out.println("Delta = 0x00067180 - 0x10068980 = -0x10001800");
-        System.out.println("FILE=PCS.dll DELTA=-10001800 ADDRESS=10068980");
+        System.out.println("FILE=PCS.dll DELTA=-10001800 LOCATION=10068980");
         System.out.println("");
         System.out.println("Project home:");
         System.out.println("https://github.com/horrorho/FuriousPotato");
