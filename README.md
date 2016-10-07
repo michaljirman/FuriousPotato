@@ -120,7 +120,7 @@ Our tool is unopinionated/ clueless in regards to binary formats and needs to be
 Thus, 
 - FILE = PCS.dll 
 - DELTA = -10001800
-- ADDRESS = 10068980.
+- LOCATION = 10068980.
 
 We can now run the tool
 ```
