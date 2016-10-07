@@ -92,7 +92,7 @@ public final class Ripper {
         }
     }
 
-    static final ASN1Template template(Mem mem) {
+    static ASN1Template template(Mem mem) {
         return new ASN1Template(mem.address(), mem.integer(), mem.integer(), mem.integer());
     }
 }
