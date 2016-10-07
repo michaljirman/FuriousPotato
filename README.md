@@ -2,7 +2,7 @@
 HorrorHo's Furious Potato.
 
 ### What is it?
-Java [Heimdal](https://github.com/heimdal/heimdal) [ASN1](https://en.wikipedia.org/wiki/Abstract_Syntax_Notation_One) template ripper. It's able to rip [asn1_template](https://github.com/heimdal/heimdal/blob/master/lib/asn1/asn1-template.h) structures from binary files and reconstruct ASN1 templates.
+Java [Heimdal](https://github.com/heimdal/heimdal) [ASN1](https://en.wikipedia.org/wiki/Abstract_Syntax_Notation_One) template ripper. It's able to rip [asn1_template](https://github.com/heimdal/heimdal/blob/master/lib/asn1/asn1-template.h) structures from binary files and reconstruct ASN1 templates. It also outputs informs in the style of OpenSSL's [asn1parse](https://www.openssl.org/docs/manmaster/apps/asn1parse.html).
 
 It's a tidied version of a private tool I created whilst reverse engineering binaries for [InflatableDonkey](https://github.com/horrorho/InflatableDonkey)'s [DER](https://en.wikipedia.org/wiki/Distinguished_Encoding_Rules#DER_encoding) [management](https://github.com/horrorho/InflatableDonkey/tree/master/src/main/java/com/github/horrorho/inflatabledonkey/data/der).
 
@@ -94,7 +94,7 @@ It's a basic reversing tool and it assumes that you know what you're doing. You'
 - DELTA, the delta in bytes that translates the executables asn1_template data segment location to it's corresponding file offset
 - LOCATION, the data segment location of the top asn1_template
 
-As an example, we'll take Apple's iCloud PCS.dll (Windows Version: 15.0.0.10.1 CRC32: E7533650).
+As an example, we'll take Apple's [iCloud](http://www.apple.com/uk/icloud/setup/pc.html) PCS.dll (Windows Version: 15.0.0.10.1 CRC32: E7533650).
 
 My disassembler loads the [DLL](https://en.wikipedia.org/wiki/Dynamic-link_library) with a 0x10001000 base. The top asn1_template location for KeySet is 0x10068980.
 
