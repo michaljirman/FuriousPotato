@@ -26,6 +26,7 @@ package com.github.horrorho.furiouspotato;
 import com.github.horrorho.furiouspotato.asn1template.ASN1Template;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
@@ -36,6 +37,7 @@ import java.util.stream.IntStream;
 import net.jcip.annotations.Immutable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import static java.util.stream.Collectors.joining;
 
 /**
  *
@@ -45,6 +47,8 @@ import org.slf4j.LoggerFactory;
 public final class Engine {
 
     private static final Logger logger = LoggerFactory.getLogger(Engine.class);
+
+    private static final int DUMP_ROWS = 4;
 
     public static void execute(String file, int delta, int address) {
         try (FileChannel in = new RandomAccessFile(file, "r").getChannel()) {
@@ -64,7 +68,7 @@ public final class Engine {
     }
 
     static void execute(Mem mem) {
-        peek(mem);
+        dump(mem);
         System.out.println("");
         List<ASN1Template> templates = rip(mem);
         operations(templates);
@@ -74,16 +78,19 @@ public final class Engine {
         informOnly(templates);
     }
 
-    static void peek(Mem mem) {
+    static void dump(Mem mem) {
         int pos = mem.address();
-        String bytes = IntStream.range(0, 4)
-                .mapToObj(i -> mem.integer())
-                .map(Hex::integer)
-                .collect(joining(" "));
+        System.out.println("DUMP:");
+        for (int i = 0; i < DUMP_ROWS; i++) {
+            int p = mem.address();
+            String bytes = IntStream.range(0, 8)
+                    .mapToObj(u -> mem.integer())
+                    .map(Integer::reverseBytes)
+                    .map(Hex::integer)
+                    .collect(joining(" "));
+            System.out.println(Hex.integer(p) + " : " + bytes);
+        }
         mem.address(pos);
-
-        System.out.println("ADDRESS PEEK:");
-        System.out.println(Hex.integer(pos) + " : " + bytes);
     }
 
     static List<ASN1Template> rip(Mem mem) {
