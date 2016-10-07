@@ -125,7 +125,7 @@ Thus,
 We can now run the tool
 ```
 ~/FuriousPotato-master/target $ java -jar FuriousPotato.jar PCS.dll -10001800 10068980
-FILE    : /media/cain/POO/virtualbox/shared/PCS.dll
+FILE    : PCS.dll
 DELTA   : 0xefffe800
 LOCATION: 0x10068980
 
