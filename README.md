@@ -65,25 +65,25 @@ The executable Jar is located at /target/FuriousPotato.jar
 ### Usage
 ```
 ~/FuriousPotato-master/target $ java -jar FuriousPotato.jar --help
-Usage: FuriousPotato FILE DELTA ADDRESS
+Usage: FuriousPotato FILE DELTA LOCATION
 Horrorho's Furious Potato. Heimdal ASN1 template ripper.
 
      --help     display this help and exit
 
-FILE<file> input file
-DELTA<hex> file position relative to executable address
-ADDRESS<hex> executable address of asn_template
+FILE<file>    input file
+DELTA<hex>    the delta in bytes that translates the executables asn1_template
+              data segment location to it's corresponding file offset
+LOCATION<hex> the data segment location of the top asn1_template
 
 Example:
 FuriousPotato PCS.dll -10001800 10068980
 
 Example details:
 Rips KeySet from Apple's iCloud PCS.dll (Version: 15.0.0.10.1 CRC32: E7533650)
-The DLL loads at 0x10001000
-KeySet asn1_template loads at 0x10068980
-KeySet asn1_template position in file 0x00067180
+KeySet asn1_template executable location 0x10068980
+KeySet asn1_template file offset 0x00067180
 Delta = 0x00067180 - 0x10068980 = -0x10001800
-FILE=PCS.dll DELTA=-10001800 ADDRESS=10068980
+FILE=PCS.dll DELTA=-10001800 LOCATION=10068980
 
 Project home:
 https://github.com/horrorho/FuriousPotato
