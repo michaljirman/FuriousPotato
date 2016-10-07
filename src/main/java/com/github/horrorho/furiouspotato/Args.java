@@ -51,9 +51,9 @@ public final class Args {
             }
 
             Args arguments = args(args);
-            System.out.println("FILE   : " + arguments.file());
-            System.out.println("DELTA  : 0x" + Hex.integer(arguments.delta()));
-            System.out.println("ADDRESS: 0x" + Hex.integer(arguments.address()));
+            System.out.println("FILE    : " + arguments.file());
+            System.out.println("DELTA   : 0x" + Hex.integer(arguments.delta()));
+            System.out.println("LOCATION: 0x" + Hex.integer(arguments.address()));
             System.out.println("");
             return Optional.of(arguments);
 
