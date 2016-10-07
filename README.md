@@ -1,5 +1,5 @@
 # FuriousPotato
-HorrorHo's Furious Potato.
+Horrorho's Furious Potato.
 
 ### What is it?
 Java [Heimdal](https://github.com/heimdal/heimdal) [ASN1](https://en.wikipedia.org/wiki/Abstract_Syntax_Notation_One) template ripper. It's able to rip [asn1_template](https://github.com/heimdal/heimdal/blob/master/lib/asn1/asn1-template.h) structures from binary files and reconstruct ASN1 templates. It also outputs informs in the style of OpenSSL's [asn1parse](https://www.openssl.org/docs/manmaster/apps/asn1parse.html).
@@ -122,7 +122,7 @@ Thus,
 - DELTA = -10001800
 - LOCATION = 10068980.
 
-We can now run the tool
+We can now run the tool. I've manually truncated the output sections as indicated.
 ```
 ~/FuriousPotato-master/target $ java -jar FuriousPotato.jar PCS.dll -10001800 10068980
 FILE    : PCS.dll
