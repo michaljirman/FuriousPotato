@@ -27,7 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * HorrorHo's Furious Potato: Java Heimdal ASN1 template ripper.
+ * Horrorho's Furious Potato: Java Heimdal ASN1 template ripper.
  *
  * @author Ahseya
  */
