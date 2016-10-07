@@ -75,7 +75,7 @@ public final class Args {
 
     static void help() {
         usage();
-        System.out.println("Horrorho's Furious Potato. Heimdal ASN1 template ripper.");
+        System.out.println("HorrorHo's Furious Potato. Heimdal ASN1 template ripper.");
         System.out.println("");
         System.out.println("     --help     display this help and exit");
         System.out.println("");
@@ -118,7 +118,7 @@ public final class Args {
         return new Args(file, delta, address);
     }
 
-    public static int integer(String hex) {
+    static int integer(String hex) {
         try {
             return Integer.parseInt(hex, 16);
         } catch (NumberFormatException ex) {
