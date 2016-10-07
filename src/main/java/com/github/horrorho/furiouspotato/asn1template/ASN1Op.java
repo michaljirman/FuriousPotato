@@ -26,7 +26,7 @@ package com.github.horrorho.furiouspotato.asn1template;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.stream.Collectors;
+import static java.util.stream.Collectors.toMap;
 import java.util.stream.Stream;
 import net.jcip.annotations.Immutable;
 
@@ -54,7 +54,7 @@ public enum ASN1Op {
 
     private static final Map<Integer, ASN1Op> MAP
             = Stream.of(ASN1Op.values())
-            .collect(Collectors.toMap(ASN1Op::bits, Function.identity()));
+            .collect(toMap(ASN1Op::bits, Function.identity()));
 
     private final int bits;
 
