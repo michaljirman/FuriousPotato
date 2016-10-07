@@ -39,7 +39,7 @@ public final class ASN1Type {
                 .map(u -> type(tt, u));
     }
 
-    public static final ASN1Type type(int tt, ASN1Tag tag) {
+    static final ASN1Type type(int tt, ASN1Tag tag) {
         ASN1Method method = ASN1Method.map(tt);
         ASN1Class classType = ASN1Class.map(tt);
         return new ASN1Type(tag, method, classType);
