@@ -10,7 +10,7 @@ It's a tidied version of a private tool I created whilst reverse engineering bin
 Templates:
 ```
 TEMPLATES (asn1_template):
-ADDRESS : < TT      , OFFSET  , PTR      > : DESCRIPTION
+LOCATION: < TT      , OFFSET  , PTR      > : DESCRIPTION
 10068cb0: < 00000000, 0000001c, 00000001 > : A1_OP_HEADER ELEMENTS=1 
 10068cbc: < 30600001, 00000000, 100688a8 > : A1_OP_TAG TAG=1 CONSTRUCTED APPLICATION 
 100688a8: < 00000000, 0000001c, 00000001 > : A1_OP_HEADER ELEMENTS=1 
