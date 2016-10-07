@@ -122,7 +122,7 @@ Thus,
 - DELTA = -10001800
 - LOCATION = 10068980.
 
-We can now run the tool
+We can now run the tool. I've manually truncated the output sections as indicated.
 ```
 ~/FuriousPotato-master/target $ java -jar FuriousPotato.jar PCS.dll -10001800 10068980
 FILE    : PCS.dll
