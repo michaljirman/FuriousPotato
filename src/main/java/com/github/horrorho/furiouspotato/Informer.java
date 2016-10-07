@@ -87,7 +87,7 @@ public final class Informer {
         }
 
         if (flags.contains(ASN1OpHeaderFlag.ELLIPSIS)) {
-            listAddFormatted(list, indentation, template, "...");
+            listAddFormatted(list, indentation + 1, template, "...");
         }
     }
 
