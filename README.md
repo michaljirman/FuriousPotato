@@ -91,7 +91,7 @@ https://github.com/horrorho/FuriousPotato
 
 It's a basic reversing tool and it assumes that you know what you're doing. You'll need three arguments
 - FILE, our file
-- DELTA, the delta in bytes that translates the asn1_template data segment location to it's corresponding file offset
+- DELTA, the delta in bytes that translates the executables asn1_template data segment location to it's corresponding file offset
 - LOCATION, the data segment location of the top asn1_template
 
 As an example, we'll take Apple's iCloud PCS.dll (Windows Version: 15.0.0.10.1 CRC32: E7533650).
