@@ -114,12 +114,14 @@ public final class Operations {
         ASN1OpTag op = ASN1OpTag.map(template.tt())
                 .orElseThrow(() -> new IllegalStateException("expected op: " + ASN1Op.TAG));
 
-        String universalTag = op.classType() == ASN1Class.UNIVERSAL
-                ? "(" + ASN1Tag.map(op.tag()).map(Object::toString).orElse("UNKNOWN") + ")"
-                : "";
-
-        return op.op() + " TAG=" + op.tag() + universalTag + " " + op.method() + " " + op.classType() + " "
+        return op.op() + " TAG=" + op.tag() + universalTag(op) + " " + op.method() + " " + op.classType() + " "
                 + Strings.join(op.flags());
+    }
+
+    static String universalTag(ASN1OpTag op) {
+        return op.classType() == ASN1Class.UNIVERSAL
+                ? '(' + ASN1Tag.map(op.tag()).map(Object::toString).orElse("UNKNOWN") + ')'
+                : "";
     }
 
     static String parse(ASN1Template template) {
