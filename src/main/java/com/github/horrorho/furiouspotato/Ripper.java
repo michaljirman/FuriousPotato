@@ -60,7 +60,7 @@ public final class Ripper {
 
         int elements = header.ptr();
         if (elements > MAX_ELEMENTS) {
-            throw new IllegalArgumentException("elements overflow: " + elements);
+            throw new IllegalArgumentException("bad header/ elements overflow: " + elements);
         }
 
         int base = mem.address();
