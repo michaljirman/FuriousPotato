@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import net.jcip.annotations.Immutable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -156,7 +157,7 @@ public final class Informer {
     }
 
     static String tagNonUniversal(ASN1OpTag opTag) {
-        return opTag.classType().toString().toLowerCase().substring(0, 4) + '[' + opTag.tag() + ']';
+        return opTag.classType().toString().toLowerCase(Locale.US).substring(0, 4) + '[' + opTag.tag() + ']';
     }
 
     static void listAppendToLast(List<String> list, String string) {

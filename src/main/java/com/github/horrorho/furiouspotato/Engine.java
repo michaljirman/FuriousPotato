@@ -128,7 +128,7 @@ public final class Engine {
     }
 
     static String strip(String string) {
-        int index = string.indexOf(":");
+        int index = string.indexOf(':');
         if (index == -1) {
             logger.debug("strip() - bad format: {}", string);
         }
