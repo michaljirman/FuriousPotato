@@ -25,6 +25,7 @@ package com.github.horrorho.furiouspotato;
 
 import com.github.horrorho.furiouspotato.asn1template.ASN1Template;
 import com.github.horrorho.furiouspotato.asn1template.ASN1Op;
+import com.github.horrorho.furiouspotato.asn1template.ASN1OpHeader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -41,8 +42,6 @@ public final class Ripper {
 
     private static final Logger logger = LoggerFactory.getLogger(Ripper.class);
 
-    private static final int MAX_ELEMENTS = 1024;
-
     public static List<ASN1Template> apply(Mem mem) {
         ArrayList<ASN1Template> list = new ArrayList<>();
         apply(mem, list);
@@ -54,29 +53,28 @@ public final class Ripper {
     }
 
     static void header(Mem mem, Consumer<ASN1Template> templates) {
-        ASN1Template header = template(mem);
-        logger.debug("header() - header: {}", header);
-        templates.accept(header);
+        ASN1Template template = template(mem);
+        logger.debug("header() - template: {}", template);
+        templates.accept(template);
 
-        int elements = header.ptr();
-        if (elements > MAX_ELEMENTS) {
-            throw new IllegalArgumentException("bad header/ elements overflow: " + elements);
-        }
+        ASN1OpHeader op = ASN1OpHeader.map(template.tt())
+                .orElseThrow(() -> new IllegalArgumentException("expected op: " + ASN1Op.HEADER));
+        logger.debug("header() - op: {}", op);
 
         int base = mem.address();
-        for (int i = 0; i < elements; i++) {
+        for (int i = 0, elements = template.ptr(); i < elements; i++) {
             mem.address(base + i * ASN1Template.SIZE);
             element(mem, templates);
         }
     }
 
     static void element(Mem mem, Consumer<ASN1Template> templates) {
-        ASN1Template element = template(mem);
-        logger.debug("element() - element: {}", element);
-        templates.accept(element);
+        ASN1Template template = template(mem);
+        logger.debug("element() - template: {}", template);
+        templates.accept(template);
 
-        ASN1Op op = ASN1Op.map(element.tt())
-                .orElseThrow(() -> new IllegalArgumentException("unsupported template op: " + element));
+        ASN1Op op = ASN1Op.map(template.tt())
+                .orElseThrow(() -> new IllegalArgumentException("unsupported/ bad template op: " + template));
         logger.debug("element() - op: {}", op);
 
         switch (op) {
@@ -84,7 +82,7 @@ public final class Ripper {
             case TYPE_EXTERN:
                 break;
             default:
-                int ptr = element.ptr();
+                int ptr = template.ptr();
                 if (ptr != 0) {
                     mem.address(ptr);
                     header(mem, templates);
