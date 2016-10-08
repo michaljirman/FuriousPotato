@@ -51,8 +51,6 @@ public final class Informer {
 
     private static final Logger logger = LoggerFactory.getLogger(Informer.class);
 
-    
-
     public static List<String> apply(List<ASN1Template> templates) {
         ArrayList<String> list = new ArrayList<>();
         header(templates.iterator(), list, "", 1);
@@ -147,15 +145,18 @@ public final class Informer {
         return Strings.join(list);
     }
 
-    static String tag(ASN1OpTag op) {
-        boolean isUniversal = op.classType() == ASN1Class.UNIVERSAL;
-        String left = isUniversal
-                ? ""
-                : op.classType().toString().toLowerCase().substring(0, 4);
-        String right = isUniversal
-                ? ASN1Tag.map(op.tag()).map(Object::toString).orElse("UNKNOWN_TAG")
-                : '[' + Integer.toString(op.tag()) + ']';
-        return left + right;
+    static String tag(ASN1OpTag opTag) {
+        return opTag.classType() == ASN1Class.UNIVERSAL
+                ? tagUniversal(opTag)
+                : tagNonUniversal(opTag);
+    }
+
+    static String tagUniversal(ASN1OpTag opTag) {
+        return ASN1Tag.map(opTag.tag()).map(Object::toString).orElse("UNKNOWN_TAG");
+    }
+
+    static String tagNonUniversal(ASN1OpTag opTag) {
+        return opTag.classType().toString().toLowerCase().substring(0, 4) + '[' + opTag.tag() + ']';
     }
 
     static void listAppendToLast(List<String> list, String string) {
