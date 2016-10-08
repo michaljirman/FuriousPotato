@@ -136,11 +136,11 @@ public final class Informer {
     }
 
     static String tag(ASN1Template template) {
-        ASN1OpTag op = ASN1OpTag.map(template.tt())
+        ASN1OpTag opTag = ASN1OpTag.map(template.tt())
                 .orElseThrow(() -> new IllegalStateException("expected op: " + ASN1Op.TAG));
 
-        String tag = tag(op);
-        String flags = Strings.join(op.flags());
+        String tag = tag(opTag);
+        String flags = Strings.join(opTag.flags());
         List<String> list = Arrays.asList(tag, flags);
         return Strings.join(list);
     }
