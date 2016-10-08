@@ -118,7 +118,7 @@ public final class Operations {
                 ? "(" + ASN1Tag.map(op.tag()).map(Object::toString).orElse("UNKNOWN") + ")"
                 : "";
 
-        return op.op() + " TAG=" + op.tag() + universalTag + " " + op.type() + " " + op.classType() + " "
+        return op.op() + " TAG=" + op.tag() + universalTag + " " + op.method() + " " + op.classType() + " "
                 + Strings.join(op.flags());
     }
 
@@ -126,8 +126,7 @@ public final class Operations {
         ASN1OpParse op = ASN1OpParse.map(template.tt())
                 .orElseThrow(() -> new IllegalStateException("expected op: " + ASN1Op.PARSE));
 
-        return op.op() + " " + op.type().tag() + " " + op.type().method() + " " + op.type().classType() + " "
-                + Strings.join(op.flags());
+        return op.op() + " " + op.type() + " " + Strings.join(op.flags());
     }
 
     static String seqOf() {

@@ -24,7 +24,6 @@
 package com.github.horrorho.furiouspotato.asn1template;
 
 import com.github.horrorho.furiouspotato.asn1.ASN1Flag;
-import com.github.horrorho.furiouspotato.asn1.ASN1Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -51,23 +50,23 @@ public final class ASN1OpParse {
     }
 
     static Optional<ASN1OpParse> opParse(int tt) {
-        return ASN1Type.map(tt).map(u -> opParse(tt, u));
+        return ASN1OpParseType.map(tt).map(u -> opParse(tt, u));
     }
 
-    static ASN1OpParse opParse(int tt, ASN1Type type) {
+    static ASN1OpParse opParse(int tt, ASN1OpParseType type) {
         List<ASN1Flag> flags = ASN1Flag.map(tt);
         return new ASN1OpParse(type, flags);
     }
 
-    private final ASN1Type type;
+    private final ASN1OpParseType type;
     private final List<ASN1Flag> flags;
 
-    public ASN1OpParse(ASN1Type type, List<ASN1Flag> flags) {
+    public ASN1OpParse(ASN1OpParseType type, List<ASN1Flag> flags) {
         this.type = Objects.requireNonNull(type);
         this.flags = new ArrayList<>(flags);
     }
 
-    public ASN1Type type() {
+    public ASN1OpParseType type() {
         return type;
     }
 
@@ -78,9 +77,4 @@ public final class ASN1OpParse {
     public ASN1Op op() {
         return ASN1Op.PARSE;
     }
-
-    @Override
-    public String toString() {
-        return "ASN1OpParse{" + "type=" + type + ", flags=" + flags + '}';
-    }
-}
+} 

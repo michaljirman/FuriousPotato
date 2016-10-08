@@ -31,14 +31,14 @@ import net.jcip.annotations.Immutable;
  */
 @Immutable
 public enum ASN1Method {
-    PRIMITIVE(0x00),
-    CONSTRUCTED(0x20);
+    PRIMITIVE(0x00000000),
+    CONSTRUCTED(0x00200000);
 
     public static ASN1Method map(int i) {
         return (i & MASK) == 0 ? PRIMITIVE : CONSTRUCTED;
     }
 
-    public static final int MASK = 0x00000020;
+    public static final int MASK = 0x00200000;
 
     private final int bits;
 

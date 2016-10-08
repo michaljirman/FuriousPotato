@@ -25,6 +25,7 @@ package com.github.horrorho.furiouspotato.asn1template;
 
 import com.github.horrorho.furiouspotato.asn1.ASN1Flag;
 import com.github.horrorho.furiouspotato.asn1.ASN1Class;
+import com.github.horrorho.furiouspotato.asn1.ASN1Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -53,22 +54,22 @@ public class ASN1OpTag {
 
     static ASN1OpTag opTag(int tt) {
         int tag = tt & TAG_MASK;
-        ASN1OpTagType tagType = ASN1OpTagType.map(tt);
+        ASN1Method method = ASN1Method.map(tt);
         ASN1Class classType = ASN1Class.map(tt);
         List<ASN1Flag> flags = ASN1Flag.map(tt);
-        return new ASN1OpTag(tag, tagType, classType, flags);
+        return new ASN1OpTag(tag, method, classType, flags);
     }
 
     private static final int TAG_MASK = 0x001FFFFF;
 
     private final int tag;
-    private final ASN1OpTagType type;
+    private final ASN1Method method;
     private final ASN1Class classType;
     private final List<ASN1Flag> flags;
 
-    public ASN1OpTag(int tag, ASN1OpTagType type, ASN1Class classType, List<ASN1Flag> flags) {
+    public ASN1OpTag(int tag, ASN1Method method, ASN1Class classType, List<ASN1Flag> flags) {
         this.tag = tag;
-        this.type = Objects.requireNonNull(type);
+        this.method = Objects.requireNonNull(method);
         this.classType = Objects.requireNonNull(classType);
         this.flags = new ArrayList<>(flags);
     }
@@ -77,8 +78,8 @@ public class ASN1OpTag {
         return tag;
     }
 
-    public ASN1OpTagType type() {
-        return type;
+    public ASN1Method method() {
+        return method;
     }
 
     public ASN1Class classType() {
@@ -95,6 +96,6 @@ public class ASN1OpTag {
 
     @Override
     public String toString() {
-        return "ASN1OpTag{" + "tag=" + tag + ", type=" + type + ", classType=" + classType + ", flags=" + flags + '}';
+        return "ASN1OpTag{" + "tag=" + tag + ", type=" + method + ", classType=" + classType + ", flags=" + flags + '}';
     }
 }
